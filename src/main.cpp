@@ -1,16 +1,25 @@
-#include "Gate.h"
-#include "Network.h"
+#include "ScalableVectorGraphicsGenerator.hpp"
 #include <fstream>
 #include <iostream>
-using namespace std;
+#include <string>
+using std::cout;
+std::string filename;
+std::ofstream out;
 
-string filename;
+int main(int argc, char* argv[])
+{
+    std::string buf1 = argv[1], buf2;
+    for (auto it = buf1.rbegin(); it != buf1.rend(); ++it) {
+        if (*it == '/')
+            break;
+        buf2 += *it;
+    }
+    filename.assign(buf2.rbegin(), buf2.rend());
 
-int main(int argc, char *argv[]) {
+    out.open(filename + ".html", std::ios::out);
+    ScalableVectorGraphicsGenerator test;
 
-  // Network network;
-  // network.parser();
-  // network.topologySort();
-  // network.test();
-  return 0;
+    test.SVGFilePrototype();
+    out.close();
+    return 0;
 }
