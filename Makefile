@@ -8,18 +8,16 @@ TARGET = hw1
 
 all: $(TARGET)
 
-$(TARGET): Source.cpp Gate.o Network.o
+$(TARGET): main.cpp ScalableVectorGraphicsGenerator.o
 	$(CXX) $(CXXFLAGS) $^ -o $@
 
-Gate.o: Gate.h Gate.cpp
-
-Network.o: Network.h Network.cpp
+ScalableVectorGraphicsGenerator.o: ScalableVectorGraphicsGenerator.hpp ScalableVectorGraphicsGenerator.cpp
 
 design_00: $(TARGET)
-	bash -c "./$(TARGET) < Benchmark/design_00.isc"
+	bash -c "./$(TARGET) Benchmark/design_00.isc"
 design_01: $(TARGET)
-	bash -c "./$(TARGET) < Benchmark/design_01.isc"
+	bash -c "./$(TARGET) Benchmark/design_01.isc"
 design_02: $(TARGET)
-	bash -c "./$(TARGET) < Benchmark/design_02.isc"
-clean: 
-	$(RM) $(TARGET) *.o
+	bash -c "./$(TARGET) Benchmark/design_02.isc"
+clean:
+	$(RM) $(TARGET) *.o *.html
