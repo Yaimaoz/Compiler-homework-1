@@ -5,7 +5,7 @@ VPATH = src/
 TARGET = hw1
 CASE ?= design_00.isc
 
-.PHONY: clean all design_00 design_01 design_02
+.PHONY: clean all test
 
 all: $(TARGET)
 
