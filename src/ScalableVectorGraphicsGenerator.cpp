@@ -1,14 +1,29 @@
 #include "ScalableVectorGraphicsGenerator.hpp"
 using std::endl;
-ScalableVectorGraphicsGenerator::ScalableVectorGraphicsGenerator() {}
+ScalableVectorGraphicsGenerator::ScalableVectorGraphicsGenerator()
+    : gateSize(50)
+    , canvasWidth(1000)
+    , canvasHeight(1000)
+{
+}
+
+ScalableVectorGraphicsGenerator::ScalableVectorGraphicsGenerator(int width, int height)
+    : gateSize(50)
+    , canvasWidth(width)
+    , canvasHeight(height)
+{
+}
 
 ScalableVectorGraphicsGenerator::~ScalableVectorGraphicsGenerator() {}
 
 void ScalableVectorGraphicsGenerator::SVGFilePrototype()
 {
     Vec3 temp1 = {0, 0, 255}, temp2 = {0, 0, 0};
-    out << "<svg width=\"400px\" height=\"450px\">" << endl;
-    drawAND(0, 0);
+    out << "<svg "
+        << "width=\"" << canvasWidth << "px\" "
+        << "height=\"" << canvasHeight << "px\">" << endl;
+    drawOR(0, 0);
+    drawAND(0, 150);
     out << "</svg>" << endl;
 }
 
@@ -46,13 +61,31 @@ void ScalableVectorGraphicsGenerator::drawAND(int x, int y)
     out << "\t<path d=";
     out << "\"M "
         << x << " " << y << " "
-        << x + 100 << " " << y << " "
+        << x + gateSize << " " << y << " "
         << "Q "
-        << x + 150 << " " << y + 50 << " "
-        << x + 100 << " " << y + 100 << " "
+        << x + gateSize * 1.5 << " " << y + gateSize / 2 << " "
+        << x + gateSize << " " << y + gateSize << " "
         << "L "
-        << x << " " << y + 100 << " "
+        << x << " " << y + gateSize << " "
         << "Z "
-        << "\" stroke=\"black\" fill=\"none\" />";
+        << "\" fill=\"red\" />";
+    out << endl;
+}
+
+void ScalableVectorGraphicsGenerator::drawOR(int x, int y)
+{
+    out << "\t<path d=";
+    out << "\"M "
+        << x << " " << y << " "
+        << x + gateSize << " " << y << " "
+        << "Q "
+        << x + gateSize * 1.5 << " " << y + gateSize / 2 << " "
+        << x + gateSize << " " << y + gateSize << " "
+        << "L "
+        << x << " " << y + gateSize << " "
+        << "Q "
+        << x + gateSize / 2 << " " << y + gateSize / 2 << " "
+        << x << " " << y << " "
+        << "\" fill=\"yellow\" />";
     out << endl;
 }

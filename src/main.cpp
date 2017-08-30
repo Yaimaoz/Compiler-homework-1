@@ -17,7 +17,7 @@ int main(int argc, char* argv[])
     filename.assign(buf2.rbegin(), buf2.rend());
 
     out.open(filename + ".html", std::ios::out);
-    ScalableVectorGraphicsGenerator test;
+    ScalableVectorGraphicsGenerator test(1000, 1000);
 
     test.SVGFilePrototype();
     out.close();

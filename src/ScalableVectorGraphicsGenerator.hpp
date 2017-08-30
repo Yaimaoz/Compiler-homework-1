@@ -20,11 +20,15 @@ class ScalableVectorGraphicsGenerator {
 
 public:
     ScalableVectorGraphicsGenerator();
+    ScalableVectorGraphicsGenerator(int, int);
     ~ScalableVectorGraphicsGenerator();
     void SVGFilePrototype();
     void drawRectangle(int, int, int, int, Vec3, int, Vec3);
     void drawCircle(int, int, int, Vec3, int, Vec3);
     void drawAND(int, int);
+    void drawOR(int, int);
 
 private:
+    int gateSize;
+    int canvasWidth, canvasHeight;
 };
