@@ -24,6 +24,7 @@ public:
     void SVGFilePrototype();
     void drawRectangle(int, int, int, int, Vec3, int, Vec3);
     void drawCircle(int, int, int, Vec3, int, Vec3);
+    void drawAND(int, int);
 
 private:
 };
