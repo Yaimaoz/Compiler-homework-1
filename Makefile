@@ -17,11 +17,5 @@ ScalableVectorGraphicsGenerator.o: ScalableVectorGraphicsGenerator.hpp ScalableV
 test: $(TARGET)
 		./$(TARGET) Benchmark/$(CASE)
 
-design_00: $(TARGET)
-	bash -c "./$(TARGET) Benchmark/design_00.isc"
-design_01: $(TARGET)
-	bash -c "./$(TARGET) Benchmark/design_01.isc"
-design_02: $(TARGET)
-	bash -c "./$(TARGET) Benchmark/design_02.isc"
 clean:
 	$(RM) $(TARGET) *.o *.html
