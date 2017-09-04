@@ -5,16 +5,6 @@
 #include <vector>
 extern std::string filename;
 extern std::ofstream out;
-
-enum Type { WIRE,
-            BUFFER,
-            AND,
-            OR,
-            NOT,
-            NAND,
-            NOR,
-            XOR,
-            NXOR };
 typedef unsigned int Vec3[3];
 class ScalableVectorGraphicsGenerator {
 

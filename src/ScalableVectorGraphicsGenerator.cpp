@@ -22,7 +22,6 @@ ScalableVectorGraphicsGenerator::ScalableVectorGraphicsGenerator(int width, int 
 
 ScalableVectorGraphicsGenerator::~ScalableVectorGraphicsGenerator()
 {
-    out << "</svg>" << endl;
 }
 
 void ScalableVectorGraphicsGenerator::SVGFilePrototype()
@@ -31,6 +30,7 @@ void ScalableVectorGraphicsGenerator::SVGFilePrototype()
     drawOR(0, 0);
     drawAND(0, 100);
     drawINV(0, 200);
+    out << "</svg>" << endl;
 }
 
 void ScalableVectorGraphicsGenerator::drawRectangle(int x, int y, int width, int height, Vec3 fillRGB, int strokeWidth, Vec3 strokeRGB)
@@ -106,5 +106,12 @@ void ScalableVectorGraphicsGenerator::drawINV(int x, int y)
         << x << " " << y + gateSize << " "
         << "Z "
         << "\" fill=\"green\" />";
+    out << endl;
+
+    out << "\t<circle ";
+    out << "cx=" << x + gateSize + gateSize / 12 << " "
+        << "cy=" << y + gateSize / 2 << " "
+        << "r=" << gateSize / 5 << " "
+        << "fill=\"green\" />";
     out << endl;
 }
