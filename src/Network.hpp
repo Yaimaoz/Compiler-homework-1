@@ -9,14 +9,14 @@ typedef std::map< std::string, Gate* > GateMap;
 
 class Network {
 
-private:
+public:
     Gate start;
     Gate end;
     GateList poList;
     GateMap gatePool;
     GateList topologySequence;
+    std::map< int, GateList > levelTable;
 
-public:
     Network();
     ~Network();
     void parser(std::string filename);
@@ -26,5 +26,6 @@ public:
     void topologySort();
     void evalNetwork();
     void breadthFirstSearch();
+    void printLevel();
     void test();
 };

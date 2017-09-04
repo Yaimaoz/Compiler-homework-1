@@ -113,6 +113,7 @@ void Network::gateWiring(std::list< char* >& tokens)
         gatePool[tokens.front()]->fanins.push_back(gatePool[tokens.back()]);
         gatePool[tokens.back()]->fanouts.push_back(gatePool[tokens.front()]);
     }
+    levelTable[0] = start.fanouts;
 }
 
 void Network::resetFanOutIt()
@@ -162,8 +163,18 @@ void Network::breadthFirstSearch()
                 queue.push_back(g);
                 g->isTrav = true;
             }
-            if (temp->level + 1 < g->level)
+            if (temp->level + 1 < g->level) {
                 g->level = temp->level + 1;
+                auto it = levelTable.find(g->level);
+                if (it != levelTable.end()) {
+                    it->second.push_back(g);
+                }
+                else {
+                    GateList listTemp;
+                    listTemp.push_back(g);
+                    levelTable[g->level] = listTemp;
+                }
+            }
         }
     }
 }
@@ -208,5 +219,15 @@ void Network::printGraph()
             cout << fanout->name << " ";
         cout << endl;
         cout << "~~~~~~~~\n";
+    }
+}
+
+void Network::printLevel()
+{
+    for (auto& temp : levelTable) {
+        cout << "Level: " << temp.first << endl;
+        for (auto g : temp.second)
+            cout << g->name << ", ";
+        cout << endl;
     }
 }
