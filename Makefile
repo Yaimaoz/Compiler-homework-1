@@ -9,10 +9,14 @@ CASE ?= design_00.isc
 
 all: $(TARGET)
 
-$(TARGET): main.cpp ScalableVectorGraphicsGenerator.o
+$(TARGET): main.cpp ScalableVectorGraphicsGenerator.o Network.o  Gate.o
 	$(CXX) $(CXXFLAGS) $^ -o $@
 
 ScalableVectorGraphicsGenerator.o: ScalableVectorGraphicsGenerator.hpp ScalableVectorGraphicsGenerator.cpp
+
+Network.o: Network.hpp Network.cpp
+
+Gate.o: Gate.hpp Gate.cpp
 
 test: $(TARGET)
 		./$(TARGET) Benchmark/$(CASE)
