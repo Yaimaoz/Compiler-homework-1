@@ -4,7 +4,7 @@ Gate::Gate()
     : value(-1)
     , type(NONE)
     , isTrav(false)
-    , level(1000)
+    , level(-1)
 {
 }
 
