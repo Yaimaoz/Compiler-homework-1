@@ -1,3 +1,4 @@
+#include "Network.hpp"
 #include "ScalableVectorGraphicsGenerator.hpp"
 #include <fstream>
 #include <iostream>
@@ -18,8 +19,13 @@ int main(int argc, char* argv[])
 
     out.open(filename + ".html", std::ios::out);
     ScalableVectorGraphicsGenerator test(1000, 1000);
-
     test.SVGFilePrototype();
     out.close();
+
+    Network network;
+    network.parser(buf1);
+    network.topologySort();
+    network.test();
+    network.printGraph();
     return 0;
 }
