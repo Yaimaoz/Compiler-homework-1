@@ -25,5 +25,6 @@ public:
     void resetFanOutIt();
     void topologySort();
     void evalNetwork();
+    void breadthFirstSearch();
     void test();
 };

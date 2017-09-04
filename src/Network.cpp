@@ -120,6 +120,7 @@ void Network::resetFanOutIt()
 
     for (auto gate : gatePool) {
         gate.second->fanOutIt = gate.second->fanouts.begin();
+        gate.second->isTrav = false;
     }
 }
 
@@ -146,6 +147,25 @@ void Network::topologySort()
     }
     topologySequence.pop_front();
     resetFanOutIt();
+}
+
+void Network::breadthFirstSearch()
+{
+    resetFanOutIt();
+    GateList queue;
+    queue.assign(start.fanouts.begin(), start.fanouts.end());
+    while (queue.size()) {
+        Gate* temp = queue.front();
+        queue.pop_front();
+        for (auto g : temp->fanouts) {
+            if (!g->isTrav) {
+                queue.push_back(g);
+                g->isTrav = true;
+            }
+            if (temp->level + 1 < g->level)
+                g->level = temp->level + 1;
+        }
+    }
 }
 
 void Network::evalNetwork()
