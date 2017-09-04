@@ -5,6 +5,9 @@ ScalableVectorGraphicsGenerator::ScalableVectorGraphicsGenerator()
     , canvasWidth(1000)
     , canvasHeight(1000)
 {
+    out << "<svg "
+        << "width=\"" << canvasWidth << "px\" "
+        << "height=\"" << canvasHeight << "px\">" << endl;
 }
 
 ScalableVectorGraphicsGenerator::ScalableVectorGraphicsGenerator(int width, int height)
@@ -12,19 +15,22 @@ ScalableVectorGraphicsGenerator::ScalableVectorGraphicsGenerator(int width, int 
     , canvasWidth(width)
     , canvasHeight(height)
 {
+    out << "<svg "
+        << "width=\"" << canvasWidth << "px\" "
+        << "height=\"" << canvasHeight << "px\">" << endl;
 }
 
-ScalableVectorGraphicsGenerator::~ScalableVectorGraphicsGenerator() {}
+ScalableVectorGraphicsGenerator::~ScalableVectorGraphicsGenerator()
+{
+    out << "</svg>" << endl;
+}
 
 void ScalableVectorGraphicsGenerator::SVGFilePrototype()
 {
     Vec3 temp1 = {0, 0, 255}, temp2 = {0, 0, 0};
-    out << "<svg "
-        << "width=\"" << canvasWidth << "px\" "
-        << "height=\"" << canvasHeight << "px\">" << endl;
     drawOR(0, 0);
-    drawAND(0, 150);
-    out << "</svg>" << endl;
+    drawAND(0, 100);
+    drawINV(0, 200);
 }
 
 void ScalableVectorGraphicsGenerator::drawRectangle(int x, int y, int width, int height, Vec3 fillRGB, int strokeWidth, Vec3 strokeRGB)
@@ -87,5 +93,18 @@ void ScalableVectorGraphicsGenerator::drawOR(int x, int y)
         << x + gateSize / 2 << " " << y + gateSize / 2 << " "
         << x << " " << y << " "
         << "\" fill=\"yellow\" />";
+    out << endl;
+}
+
+void ScalableVectorGraphicsGenerator::drawINV(int x, int y)
+{
+    out << "\t<path d=";
+    out << "\"M "
+        << x << " " << y << " "
+        << "L "
+        << x + gateSize << " " << y + gateSize / 2 << " "
+        << x << " " << y + gateSize << " "
+        << "Z "
+        << "\" fill=\"green\" />";
     out << endl;
 }

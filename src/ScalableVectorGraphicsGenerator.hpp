@@ -27,6 +27,7 @@ public:
     void drawCircle(int, int, int, Vec3, int, Vec3);
     void drawAND(int, int);
     void drawOR(int, int);
+    void drawINV(int, int);
 
 private:
     int gateSize;
