@@ -1,30 +1,29 @@
 #pragma once
-#include"Gate.h"
-#include<map>
-#include<string>
-#include<cstring>
-#include<list>
-#include<iterator>
-typedef std::map<std::string, Gate*> GateMap;
+#include "Gate.hpp"
+#include <cstring>
+#include <iterator>
+#include <list>
+#include <map>
+#include <string>
+typedef std::map< std::string, Gate* > GateMap;
 
-class Network{
+class Network {
 
-    private:
-        Gate start;
-        Gate end;
-        GateList poList;
-        GateMap gatePool;
+private:
+    Gate start;
+    Gate end;
+    GateList poList;
+    GateMap gatePool;
+    GateList topologySequence;
 
-        GateList topologySequence;
-
-    public:
-        Network();
-        ~Network();
-        void parser();
-        void gateWiring( std::list<char*>& );
-        void printGraph();
-        void resetFanOutIt();
-        void topologySort();
-        void evalNetwork();
-        void test();
+public:
+    Network();
+    ~Network();
+    void parser(std::string filename);
+    void gateWiring(std::list< char* >&);
+    void printGraph();
+    void resetFanOutIt();
+    void topologySort();
+    void evalNetwork();
+    void test();
 };
