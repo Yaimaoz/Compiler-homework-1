@@ -247,7 +247,7 @@ void ScalableVectorGraphicsGenerator::drawPath(std::vector< int > path)
     out << "\"M ";
     for (int i = 0; i < path.size(); ++i)
         out << path[i] << " ";
-    out << " />";
+    out << "\" />";
     out << endl;
 }
 
