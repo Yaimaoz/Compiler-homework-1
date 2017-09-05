@@ -172,7 +172,7 @@ void ScalableVectorGraphicsGenerator::drawXNOR(int x, int y)
         << "Q "
         << x + gateSize / 2 + gateSize / 4 << " " << y + gateSize / 2 << " "
         << x + gateSize / 4 << " " << y << " "
-        << "\" fill=\"black\" />";
+        << "\" fill=\"blue\" />";
     out << endl;
 
     out << "\t<path d=";
@@ -187,14 +187,14 @@ void ScalableVectorGraphicsGenerator::drawXNOR(int x, int y)
         << "Q "
         << x + gateSize / 2 << " " << y + gateSize / 2 << " "
         << x << " " << y << " "
-        << "\" fill=\"black\" />";
+        << "\" fill=\"blue\" />";
     out << endl;
 
     out << "\t<circle ";
     out << "cx=" << x + gateSize + gateSize / 3 << " "
         << "cy=" << y + gateSize / 2 << " "
         << "r=" << gateSize / 7 << " "
-        << "fill=\"black\" />";
+        << "fill=\"blue\" />";
     out << endl;
 }
 
@@ -249,6 +249,15 @@ void ScalableVectorGraphicsGenerator::drawPath(std::vector< int >& path)
     for (int i = 2; i < path.size(); ++i)
         out << path[i] << " ";
     out << "\" stroke=\"black\" />";
+    out << endl;
+}
+
+void ScalableVectorGraphicsGenerator::drawText(int x, int y, std::string& text)
+{
+    out << "\t<text "
+        << "x=\"" << x + gateSize / 2 << "\" "
+        << "y=\"" << y + gateSize / 2 << "\" >"
+        << text << "</text>";
     out << endl;
 }
 

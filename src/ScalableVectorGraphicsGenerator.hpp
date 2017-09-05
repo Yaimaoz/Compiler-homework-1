@@ -30,6 +30,7 @@ public:
     void drawXNOR(int, int);
     void drawIOBox(int, int, int);
     void drawPath(std::vector< int >&);
+    void drawText(int, int, std::string&);
 
 private:
     int gateSize;
