@@ -27,6 +27,7 @@ public:
     void drawXOR(int, int);
     void drawXNOR(int, int);
     void drawIOBox(int, int, int);
+    void drawPath(std::vector< int >);
 
 private:
     int gateSize;

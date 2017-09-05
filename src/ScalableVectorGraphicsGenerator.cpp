@@ -241,6 +241,16 @@ void ScalableVectorGraphicsGenerator::drawIOBox(int x, int y, int flag)
     }
 }
 
+void ScalableVectorGraphicsGenerator::drawPath(std::vector< int > path)
+{
+    out << "\t<path d=";
+    out << "\"M ";
+    for (int i = 0; i < path.size(); ++i)
+        out << path[i] << " ";
+    out << " />";
+    out << endl;
+}
+
 void ScalableVectorGraphicsGenerator::SVGDeclare(int width, int height)
 {
     out << "<svg "
