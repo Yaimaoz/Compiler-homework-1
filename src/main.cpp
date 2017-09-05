@@ -26,19 +26,25 @@ int main(int argc, char* argv[])
     out.open(filename + ".html", std::ios::out);
 
     ScalableVectorGraphicsGenerator test;
-    test.SVGDeclare(1000, 1000);
+    test.SVGDeclare(50000, 50000);
     test.setGateSize(50);
     int spacing = 50;
     int x = 0, y = 0;
     for (auto level : network.levelTable) {
         y = 0;
         for (auto g : level.second) {
+            g->x = x + test.getGateSize() / 2;
+            g->y = y + test.getGateSize() / 2;
             switch (g->type) {
             case INPUT:
                 test.drawIOBox(x, y, 0);
                 break;
             case OUTPUT:
                 test.drawIOBox(x, y, 1);
+                break;
+            case BUFFER:
+                cout << "!!!!!!\n";
+                test.drawIOBox(x, y, 2);
                 break;
             case NOT:
                 test.drawINV(x, y);
@@ -65,6 +71,21 @@ int main(int argc, char* argv[])
             y += spacing * 2;
         }
         x += spacing * 2;
+    }
+
+    for (auto& pair : network.gatePool) {
+        std::vector< int > path;
+        path.push_back(pair.second->x);
+        path.push_back(pair.second->y);
+        for (auto g : pair.second->fanouts) {
+            path.push_back(g->x);
+            path.push_back(g->y);
+            test.drawPath(path);
+            path.pop_back();
+            path.pop_back();
+        }
+        path.pop_back();
+        path.pop_back();
     }
 
     test.SVGEnd();

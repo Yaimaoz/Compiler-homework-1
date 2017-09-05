@@ -241,13 +241,14 @@ void ScalableVectorGraphicsGenerator::drawIOBox(int x, int y, int flag)
     }
 }
 
-void ScalableVectorGraphicsGenerator::drawPath(std::vector< int > path)
+void ScalableVectorGraphicsGenerator::drawPath(std::vector< int >& path)
 {
     out << "\t<path d=";
-    out << "\"M ";
-    for (int i = 0; i < path.size(); ++i)
+    out << "\"M " << path[0] << " " << path[1] << " ";
+    out << "L ";
+    for (int i = 2; i < path.size(); ++i)
         out << path[i] << " ";
-    out << "\" />";
+    out << "\" stroke=\"black\" />";
     out << endl;
 }
 
