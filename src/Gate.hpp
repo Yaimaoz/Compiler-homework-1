@@ -31,5 +31,7 @@ public:
     bool isTrav;
     size_t level;
 
+    int x, y;
+
     GateList::iterator fanOutIt;
 };
