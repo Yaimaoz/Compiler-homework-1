@@ -269,3 +269,8 @@ void ScalableVectorGraphicsGenerator::setGateSize(int inSize)
 {
     gateSize = inSize;
 }
+
+int ScalableVectorGraphicsGenerator::getGateSize()
+{
+    return gateSize;
+}

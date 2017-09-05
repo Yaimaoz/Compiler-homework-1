@@ -15,7 +15,9 @@ public:
     void SVGDeclare(int, int);
     void SVGEnd();
     void SVGFilePrototype();
+
     void setGateSize(int);
+    int getGateSize();
 
     void drawRectangle(int, int, int, int, std::string);
     void drawCircle(int, int, int, Vec3, int, Vec3);
