@@ -181,9 +181,31 @@ void Network::breadthFirstSearch()
 
 void Network::evalNetwork()
 {
-
     for (auto gate : topologySequence)
         gate->eval();
+}
+
+void Network::evalLevel()
+{
+    for (auto gate : topologySequence) {
+        if (gate->type != INPUT) {
+            int max = 0;
+            for (auto g : gate->fanins) {
+                if (g->level > max)
+                    max = g->level;
+            }
+            gate->level = max + 1;
+            auto it = levelTable.find(gate->level);
+            if (it != levelTable.end()) {
+                it->second.push_back(gate);
+            }
+            else {
+                GateList listTemp;
+                listTemp.push_back(gate);
+                levelTable[gate->level] = listTemp;
+            }
+        }
+    }
 }
 
 void Network::test()
