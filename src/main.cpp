@@ -33,7 +33,35 @@ int main(int argc, char* argv[])
     for (auto level : network.levelTable) {
         y = 0;
         for (auto g : level.second) {
-            test.drawOR(x, y);
+            switch (g->type) {
+            case INPUT:
+                test.drawIOBox(x, y, 0);
+                break;
+            case OUTPUT:
+                test.drawIOBox(x, y, 1);
+                break;
+            case NOT:
+                test.drawINV(x, y);
+                break;
+            case AND:
+                test.drawAND(x, y);
+                break;
+            case OR:
+                test.drawOR(x, y);
+                break;
+            case NAND:
+                test.drawNAND(x, y);
+                break;
+            case NOR:
+                test.drawNOR(x, y);
+                break;
+            case XOR:
+                test.drawXOR(x, y);
+                break;
+            case NXOR:
+                test.drawXNOR(x, y);
+                break;
+            }
             y += spacing * 2;
         }
         x += spacing * 2;

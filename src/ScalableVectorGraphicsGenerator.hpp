@@ -17,11 +17,16 @@ public:
     void SVGFilePrototype();
     void setGateSize(int);
 
-    void drawRectangle(int, int, int, int, Vec3, int, Vec3);
+    void drawRectangle(int, int, int, int, std::string);
     void drawCircle(int, int, int, Vec3, int, Vec3);
     void drawAND(int, int);
     void drawOR(int, int);
     void drawINV(int, int);
+    void drawNAND(int, int);
+    void drawNOR(int, int);
+    void drawXOR(int, int);
+    void drawXNOR(int, int);
+    void drawIOBox(int, int, int);
 
 private:
     int gateSize;
