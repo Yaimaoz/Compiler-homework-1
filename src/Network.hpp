@@ -5,7 +5,9 @@
 #include <list>
 #include <map>
 #include <string>
+#include <set>
 typedef std::map< std::string, Gate* > GateMap;
+typedef std::set< Gate* > GateSet;
 
 class Network {
 
@@ -15,7 +17,7 @@ public:
     GateList poList;
     GateMap gatePool;
     GateList topologySequence;
-    std::map< int, GateList > levelTable;
+    std::map< int, GateSet > levelTable;
 
     Network();
     ~Network();

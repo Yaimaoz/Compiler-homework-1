@@ -113,7 +113,11 @@ void Network::gateWiring(std::list< char* >& tokens)
         gatePool[tokens.front()]->fanins.push_back(gatePool[tokens.back()]);
         gatePool[tokens.back()]->fanouts.push_back(gatePool[tokens.front()]);
     }
-    levelTable[0] = start.fanouts;
+    GateSet temp;
+    for ( auto input : start.fanouts )
+        temp.insert(input);
+    levelTable[0] = temp;
+
 }
 
 void Network::resetFanOutIt()
@@ -150,35 +154,6 @@ void Network::topologySort()
     resetFanOutIt();
 }
 
-void Network::breadthFirstSearch()
-{
-    resetFanOutIt();
-    GateList queue;
-    queue.assign(start.fanouts.begin(), start.fanouts.end());
-    while (queue.size()) {
-        Gate* temp = queue.front();
-        queue.pop_front();
-        for (auto g : temp->fanouts) {
-            if (!g->isTrav) {
-                queue.push_back(g);
-                g->isTrav = true;
-            }
-            if (temp->level + 1 < g->level) {
-                g->level = temp->level + 1;
-                auto it = levelTable.find(g->level);
-                if (it != levelTable.end()) {
-                    it->second.push_back(g);
-                }
-                else {
-                    GateList listTemp;
-                    listTemp.push_back(g);
-                    levelTable[g->level] = listTemp;
-                }
-            }
-        }
-    }
-}
-
 void Network::evalNetwork()
 {
     for (auto gate : topologySequence)
@@ -189,7 +164,7 @@ void Network::evalLevel()
 {
     for (auto gate : topologySequence) {
         if (gate->type != INPUT) {
-            int max = 0;
+            int max = gate->fanins.front()->level;
             for (auto g : gate->fanins) {
                 if (g->level > max)
                     max = g->level;
@@ -197,12 +172,12 @@ void Network::evalLevel()
             gate->level = max + 1;
             auto it = levelTable.find(gate->level);
             if (it != levelTable.end()) {
-                it->second.push_back(gate);
+                it->second.insert(gate);
             }
             else {
-                GateList listTemp;
-                listTemp.push_back(gate);
-                levelTable[gate->level] = listTemp;
+                GateSet setTemp;
+                setTemp.insert(gate);
+                levelTable[gate->level] = setTemp;
             }
         }
     }
@@ -246,6 +221,7 @@ void Network::printGraph()
 
 void Network::printLevel()
 {
+    cout << levelTable.size()  << endl;
     for (auto& temp : levelTable) {
         cout << "Level: " << temp.first << endl;
         for (auto g : temp.second)
