@@ -29,7 +29,7 @@ public:
     int value;
     GateType type;
     bool isTrav;
-    size_t level;
+    int level;
 
     int x, y;
 
