@@ -21,7 +21,6 @@ int main(int argc, char* argv[])
     network.parser(buf1);
     network.topologySort();
     network.evalLevel();
-    network.printLevel();
     out.open(filename + ".html", std::ios::out);
 
     ScalableVectorGraphicsGenerator test;
