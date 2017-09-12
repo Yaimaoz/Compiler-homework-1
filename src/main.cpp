@@ -20,8 +20,7 @@ int main(int argc, char* argv[])
     Network network;
     network.parser(buf1);
     network.topologySort();
-    network.test();
-    network.breadthFirstSearch();
+    network.evalLevel();
     network.printLevel();
     out.open(filename + ".html", std::ios::out);
 
@@ -43,7 +42,6 @@ int main(int argc, char* argv[])
                 test.drawIOBox(x, y, 1);
                 break;
             case BUFFER:
-                cout << "!!!!!!\n";
                 test.drawIOBox(x, y, 2);
                 break;
             case NOT:
@@ -68,9 +66,10 @@ int main(int argc, char* argv[])
                 test.drawXNOR(x, y);
                 break;
             }
+            test.drawText(x, y, g->name);
             y += spacing * 2;
         }
-        x += spacing * 2;
+        x += spacing * 4;
     }
 
     for (auto& pair : network.gatePool) {

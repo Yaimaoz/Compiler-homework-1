@@ -233,11 +233,13 @@ void ScalableVectorGraphicsGenerator::drawXOR(int x, int y)
 
 void ScalableVectorGraphicsGenerator::drawIOBox(int x, int y, int flag)
 {
-    if (flag) {
+    if (flag == 0) {
         drawRectangle(x, y + gateSize / 4, gateSize, gateSize / 2, "Cyan");
     }
-    else {
+    else if ( flag == 1 ){
         drawRectangle(x, y + gateSize / 4, gateSize, gateSize / 2, "Fuchsia");
+    } else {
+        drawRectangle(x, y + gateSize / 4, gateSize, gateSize / 2, "gray");
     }
 }
 
