@@ -21,10 +21,9 @@ int main(int argc, char* argv[])
     network.parser(buf1);
     network.topologySort();
     network.evalLevel();
-    out.open(filename + ".html", std::ios::out);
-
+    
     ScalableVectorGraphicsGenerator test;
-    test.SVGDeclare(50000, 50000);
+    test.SVGBegin(filename, 50000, 50000);
     test.setGateSize(50);
     int spacing = 50;
     int x = 0, y = 0;
@@ -87,7 +86,6 @@ int main(int argc, char* argv[])
     }
 
     test.SVGEnd();
-    out.close();
 
     return 0;
 }

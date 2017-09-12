@@ -7,26 +7,8 @@ ScalableVectorGraphicsGenerator::ScalableVectorGraphicsGenerator()
 {
 }
 
-ScalableVectorGraphicsGenerator::ScalableVectorGraphicsGenerator(int width, int height)
-    : gateSize(50)
-    , canvasWidth(width)
-    , canvasHeight(height)
-{
-    out << "<svg "
-        << "width=\"" << canvasWidth << "px\" "
-        << "height=\"" << canvasHeight << "px\">" << endl;
-}
-
 ScalableVectorGraphicsGenerator::~ScalableVectorGraphicsGenerator()
 {
-}
-
-void ScalableVectorGraphicsGenerator::SVGFilePrototype()
-{
-    Vec3 temp1 = {0, 0, 255}, temp2 = {0, 0, 0};
-    drawOR(0, 0);
-    drawAND(0, 100);
-    drawINV(0, 200);
 }
 
 void ScalableVectorGraphicsGenerator::drawRectangle(int x, int y, int width, int height, std::string color)
@@ -39,20 +21,6 @@ void ScalableVectorGraphicsGenerator::drawRectangle(int x, int y, int width, int
     out << "fill=\""
         << color
         << "\" ";
-    out << " />" << endl;
-}
-
-void ScalableVectorGraphicsGenerator::drawCircle(int cx, int cy, int r, Vec3 fillRGB, int strokeWidth, Vec3 strokeRGB)
-{
-    out << "\t<circle "
-        << "cx=\"" << cx << "\" "
-        << "cy=\"" << cy << "\" "
-        << "r=\"" << r << "\" ";
-    out << "style=\""
-        << "fill:rgb(" << fillRGB[0] << "," << fillRGB[1] << "," << fillRGB[2] << ");"
-        << "stroke-width:" << strokeWidth << ";"
-        << "stroke:rgb(" << strokeRGB[0] << "," << strokeRGB[1] << "," << strokeRGB[2] << ");"
-        << "\"";
     out << " />" << endl;
 }
 
@@ -263,8 +231,9 @@ void ScalableVectorGraphicsGenerator::drawText(int x, int y, std::string& text)
     out << endl;
 }
 
-void ScalableVectorGraphicsGenerator::SVGDeclare(int width, int height)
+void ScalableVectorGraphicsGenerator::SVGBegin(std::string filename, int width, int height)
 {
+    out.open(filename+".html", std::ios::out);
     out << "<svg "
         << "width=\"" << width << "px\" "
         << "height=\"" << height << "px\">" << endl;
@@ -275,6 +244,7 @@ void ScalableVectorGraphicsGenerator::SVGDeclare(int width, int height)
 void ScalableVectorGraphicsGenerator::SVGEnd()
 {
     out << "</svg>" << endl;
+    out.close();
 }
 
 void ScalableVectorGraphicsGenerator::setGateSize(int inSize)
