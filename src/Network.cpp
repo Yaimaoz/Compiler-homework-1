@@ -45,6 +45,11 @@ void Network::parser(std::string filename)
             end.fanins.push_back(pair.second);
     }
     resetFanOutIt();
+    
+    GateSet temp;
+    for ( auto input : start.fanouts )
+        temp.insert(input);
+    levelTable[0] = temp;
 }
 
 void Network::gateWiring(std::list< char* >& tokens)
@@ -93,7 +98,7 @@ void Network::gateWiring(std::list< char* >& tokens)
             else if (!strcmp(*std::next(tokens.begin()), "NXOR")) {
                 gatePool[tokens.front()]->type = NXOR;
             }
-
+            
             it = gatePool.find(*std::next(tokens.rbegin()));
             if (it == gatePool.end()) {
                 Gate* buffer2 = new Gate;
@@ -113,10 +118,6 @@ void Network::gateWiring(std::list< char* >& tokens)
         gatePool[tokens.front()]->fanins.push_back(gatePool[tokens.back()]);
         gatePool[tokens.back()]->fanouts.push_back(gatePool[tokens.front()]);
     }
-    GateSet temp;
-    for ( auto input : start.fanouts )
-        temp.insert(input);
-    levelTable[0] = temp;
 
 }
 
@@ -162,6 +163,7 @@ void Network::evalNetwork()
 
 void Network::evalLevel()
 {
+    int PrimaryOutput = 0;
     for (auto gate : topologySequence) {
         if (gate->type != INPUT) {
             int max = gate->fanins.front()->level;
@@ -170,6 +172,8 @@ void Network::evalLevel()
                     max = g->level;
             }
             gate->level = max + 1;
+            if ( PrimaryOutput < gate->level )
+                PrimaryOutput = gate->level;
             auto it = levelTable.find(gate->level);
             if (it != levelTable.end()) {
                 it->second.insert(gate);
@@ -181,6 +185,15 @@ void Network::evalLevel()
             }
         }
     }
+    for ( auto gate : topologySequence ){
+        if ( gate->fanouts.size() == 0 ) {
+            if ( levelTable[PrimaryOutput].find(gate) == levelTable[PrimaryOutput].end() ){
+                levelTable[PrimaryOutput].insert(gate);
+                levelTable[gate->level].erase(gate);
+                gate->level = PrimaryOutput;
+            }
+        }
+    } 
 }
 
 void Network::test()
