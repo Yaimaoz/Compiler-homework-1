@@ -233,7 +233,7 @@ void ScalableVectorGraphicsGenerator::drawText(int x, int y, std::string& text)
 
 void ScalableVectorGraphicsGenerator::SVGBegin(std::string filename, int width, int height)
 {
-    out.open(filename+".html", std::ios::out);
+    out.open(std::string(filename+".html").c_str(), std::ios::out);
     out << "<svg "
         << "width=\"" << width << "px\" "
         << "height=\"" << height << "px\">" << endl;
